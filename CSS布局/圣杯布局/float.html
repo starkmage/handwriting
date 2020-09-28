@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .head, .foot {
+      height: 100px;
+      width: 100vw;
+      background-color: yellow;
+    }
+    .container {
+      overflow: hidden;
+      padding: 0 100px 0 100px;
+    }
+    .container div {
+      float: left;
+      position: relative;
+    }
+    .mid {
+      background-color: pink;
+      width: 100%;
+    }
+    .left {
+      width: 100px;
+      background-color: green;
+      margin-left: -100%;
+      left: -100px;
+    }
+    .right {
+      width: 100px;
+      background-color: green;
+      margin-left: -100px;
+      left: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">头部</div>
+  <div class="container">
+    <div class="mid">中间</div>
+    <div class="left">左侧</div>
+    <div class="right">右侧</div>
+  </div>
+  <div class="foot">底部</div>
+</body>
+</html>

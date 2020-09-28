@@ -1,0 +1,50 @@
+.wraper {
+  height: 400px;
+  width: 400px;
+  background-color: yellow;
+  position: relative;
+}
+
+.content {
+  height: 100px;
+  width: 100px;
+  background-color: pink;
+}
+
+
+/* 方法1 */
+/* absolute + transform */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 方法2 */
+/* flex */
+/* .wraper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* 方法3 */
+/* .content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+} */
+
+
+/* 方法4 */
+/* .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+} */

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="input">
+  <p id="output"></p>
+  <script>
+    let input = document.getElementById('input')
+    let output = document.getElementById('output')
+
+    // 1. 方法1
+ /*    var obj = {_text: 'zsj'}
+    Object.defineProperty(obj, 'text', {
+      configurable: true,
+      enumerable: true,
+      get() {
+        console.log('被使用了')
+        return obj._text
+      },
+      set(newValue) {
+        console.log('数据更新');
+        obj._text = newValue
+        input.value = newValue
+        output.innerText = newValue
+      }
+    })
+    input.addEventListener('keyup', event => {
+      obj.text = event.target.value
+    }) */
+    
+    // 2. 方法2
+    var obj = {text: 'zzz'}
+    function reactive(obj, key, val) {
+      Object.defineProperty(obj, key, {
+        configurable: true,
+        enumerable: true,
+        get() {
+          console.log('数据被使用了');
+          return val
+        },
+        set(newVal) {
+          console.log('数据更新');
+          val = newVal
+          input.value = newVal
+          output.innerText = newVal
+        }
+      })
+    }
+    reactive(obj, 'text', obj.text)
+    input.addEventListener('keyup', event => {
+      obj.text = event.target.value
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parent {
+      background-color: yellow;
+    }
+
+    .left {
+      float: left;
+      background-color: green;
+    }
+
+    .right {
+      float: right;
+      background-color: pink;
+    }
+
+    .parent:after {
+      /* 设置添加子元素的内容是空 */
+      content: '';
+      /* 设置添加子元素为块级元素 */
+      display: block;
+      /* 设置添加的子元素的高度0 */
+      height: 0;
+      /* 设置添加子元素看不见 */
+      visibility: hidden;
+      /* 设置clear：both */
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="left">左侧浮动内容</div>
+    <div class="right">右侧浮动内容</div>
+    <div class="clear"></div>
+  </div>
+</body>
+
+</html>
