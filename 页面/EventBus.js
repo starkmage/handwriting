@@ -42,7 +42,7 @@ myEventBus.prototype.removeListener = function(type, listener) {
         handler.splice(i, 1)
         i--
         // 长度为1，不需要变成数组
-        if (handler.length === 0) {
+        if (handler.length === 1) {
           this.events.set(type, handler[0])
         }
       }

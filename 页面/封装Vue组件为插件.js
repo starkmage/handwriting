@@ -1,8 +1,14 @@
 // 假设 Toast 为我们封装好的组件
-const Toast = {}
+import Toast from ''
 
 const obj = {}
 
+/*
+安装 Vue.js 插件。
+如果插件是一个对象，必须提供 install 方法。
+如果插件是一个函数，它会被作为 install 方法。
+install 方法调用时，会将 Vue 作为参数传入。
+*/
 obj.install = Vue => {
   // 1. 创建组件容器
   const constructor = Vue.extend(Toast)
@@ -15,4 +21,9 @@ obj.install = Vue => {
   Vue.prototype.$toast = toast
 }
 
-Vue.use(toast)
+export default obj
+
+// main.js
+
+import obj from ''
+Vue.use(obj)

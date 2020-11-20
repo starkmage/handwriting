@@ -4,6 +4,7 @@ function flatten1(array) {
 }
 
 //2. 扩展运算符
+// 利用 concat 既可以接收数组参数，也可以接收数字
 function flatten2(array) {
   while (array.some(value => Array.isArray(value))) {
     array = [].concat(...array)
@@ -38,6 +39,15 @@ function flatten5(array) {
 }
 
 
+// 补充：自定义flat
+function myFlat(array, deep = 1) {
+  while (deep > 0 && array.some(item => Array.isArray(item))) {
+    array = [].concat(...array)
+  }
+  return array
+}
+
+
 let ary = [1, 2, [3, 4], [5, [6, 7]]]
-let res = flatten2(ary)
+let res = myFlat(ary)
 console.log(res);

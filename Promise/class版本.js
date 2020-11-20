@@ -58,7 +58,7 @@ class myPromise {
           if (res instanceof myPromise) {
             res.then(value => resolve(value), reason => reject(reason))
           } else {
-            resolve(value)
+            resolve(res)
           }
         } catch (err) {
           reject(err)
@@ -88,6 +88,14 @@ class myPromise {
 
   catch(onRejected) {
     return this.then(undefined, onRejected)
+  }
+
+  finally(callback) {
+    this.then(value => {
+      return myPromise.resolve(callback()).then(() => value)
+    }, reason => {
+      return myPromise.resolve(callback()).then(() => { throw reason })
+    })
   }
 
 
