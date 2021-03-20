@@ -18,7 +18,9 @@ function throttlePlus(fn, wait) {
     else {
       if (timer) clearTimeout(timer)
       timer = setTimeout(() => {
-        last = now
+        // last = now
+        // 这样控制更精准
+        last = new Date()
         fn.apply(this, args)
       }, wait)
     }

@@ -26,4 +26,5 @@ export default obj
 // main.js
 
 import obj from ''
+// Vue.use()主要是调用插件内部的install方法
 Vue.use(obj)

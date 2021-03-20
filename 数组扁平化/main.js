@@ -40,11 +40,13 @@ function flatten5(array) {
 
 
 // 补充：自定义flat
-function myFlat(array, deep = 1) {
-  while (deep > 0 && array.some(item => Array.isArray(item))) {
-    array = [].concat(...array)
+Array.prototype.myFlat = function(deep) {
+  let res = JSON.parse(JSON.stringify(this))
+  while (deep > 0 && this.some(item => Array.isArray(item))) {
+    res = [].concat(...res)
+    deep--
   }
-  return array
+  return res
 }
 
 
