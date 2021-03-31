@@ -5,7 +5,7 @@ function repeat(fn, times, delay) {
   return function(...args) {
     let count = 0
     let timer = setInterval(() => {
-      fn(...args)
+      fn.apply(this, args)
       count++
       if (count === times) {
         clearInterval(timer)

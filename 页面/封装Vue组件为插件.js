@@ -16,8 +16,9 @@ obj.install = Vue => {
   const toast = new constructor()
   // 3. 创建一个div元素并将toast挂载上去
   toast.$mount(document.createElement('div'))
-  // 4. 添加这个div元素
+  // 4. 添加这个div元素到页面
   document.body.appendChild(toast.$el)
+  // 5. 添加到Vue原型对象
   Vue.prototype.$toast = toast
 }
 
