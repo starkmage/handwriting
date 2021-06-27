@@ -1,36 +1,35 @@
-function mergeSort(array) {
-  let res = mergeSortSplit(array)
-  for (let i in array) {
-    array[i] = res[i]
-  }
+function mergeSort(arr) {
+  const len = arr.length
+  if (len <= 1) return arr
+  const mid = Math.floor(len / 2)
+  const left = mergeSort(arr.slice(0, mid))
+  const right = mergeSort(arr.slice(mid))
+  return merge(left, right)
 }
 
-function mergeSortSplit(array) {
-  if (array.length <= 1) return array
-  let center = Math.floor(array.length / 2)
-  let left = mergeSortSplit(array.slice(0, center))
-  let right = mergeSortSplit(array.slice(center, array.length))
-  return mergeSortMerge(left, right)
-}
-
-function mergeSortMerge(left, right) {
-  let res = []
-  while (left.length && right.length) {
-    left[0] <= right[0] ? res.push(left.shift()) : res.push(right.shift())
+function merge(left, right) {
+  const res = []
+  let i = 0, j = 0
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      res.push(left[i])
+      i++
+    } else {
+      res.push(right[j])
+      j++
+    }
   }
-  if (left.length) res.push(...left)
-  if (right.length) res.push(...right)
+  if (i < left.length) {
+    res.push(...left.slice(i))
+  }
+  if (j < right.length) {
+    res.push(...right.slice(j))
+  }
   return res
 }
 
 let a = [3, 2, 1, 4, 9, 2, 1, 13]
 
-mergeSort(a)
-
-let b = [7, 6, 8, 5, 4, 3, 2, 1]
-
-mergeSort(b)
-
-console.log(a);
+let b = mergeSort(a)
 
 console.log(b);

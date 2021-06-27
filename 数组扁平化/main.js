@@ -15,7 +15,7 @@ function flatten2(array) {
 //3. 转换成字符串
 function flatten3(array) {
   let str = array.toString()
-  return str.split(',').map(item => parseInt(item))
+  return str.split(',').map(item => parseFloat(item))
 }
 
 //4. reduce递归
@@ -42,7 +42,7 @@ function flatten5(array) {
 // 补充：自定义flat
 Array.prototype.myFlat = function(deep) {
   let res = JSON.parse(JSON.stringify(this))
-  while (deep > 0 && this.some(item => Array.isArray(item))) {
+  while (deep > 0 && res.some(item => Array.isArray(item))) {
     res = [].concat(...res)
     deep--
   }

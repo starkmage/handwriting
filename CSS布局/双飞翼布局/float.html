@@ -11,13 +11,19 @@
     }
     .container {
       min-width: 600px;
+      overflow: hidden;
     }
-    .left {
+    .left, .right {
       float: left;
       width: 100px;
       height: 400px;
       background-color: green;
+    }
+    .left {
       margin-left: -100%;
+    }
+    .right {
+      margin-left: -100px;
     }
     .center {
       float: left;
@@ -27,13 +33,6 @@
     }
     .inner {
       margin: 0 100px;
-    }
-    .right {
-      float: left;
-      width: 100px;
-      height: 400px;
-      background-color: green;
-      margin-left: -100px;
     }
   </style>
 </head>

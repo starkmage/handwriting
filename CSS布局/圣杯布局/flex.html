@@ -9,37 +9,28 @@
       margin: 0;
       padding: 0;
     }
-    .head, .foot {
-      height: 100px;
-      width: 100vw;
-      background-color: yellow;
-    }
     .container {
       width: 100vw;
       display: flex;
     }
-    .left {
+    .left, .right {
       width: 100px;
       background-color: green;
+    }
+    .left {
       order: -1;
     }
     .mid {
       flex: 1;
       background-color: pink;
     }
-    .right {
-      width: 100px;
-      background-color: green;
-    }
   </style>
 </head>
 <body>
-  <div class="head">头部</div>
   <div class="container">
     <div class="mid">中间</div>
     <div class="left">左侧</div>
     <div class="right">右侧</div>
   </div>
-  <div class="foot">底部</div>
 </body>
 </html>
