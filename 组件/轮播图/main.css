@@ -1,0 +1,85 @@
+/* 清除基础样式 */
+#banner,
+#banner li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#banner{
+  position: absolute;
+
+}
+
+/* 图片在一行内显示 */
+#banner li {
+  float: left;
+}
+#banner li img {
+  /* 清除图片之间的间隙 */
+  display: block;
+  height: 400px;
+  width: 400px;
+}
+
+/* 设置父元素定位 */
+#container {
+  position: relative;
+}
+
+
+/* 小圆点 */
+#buttons{
+  position: absolute; /*小圆点绝对定位*/
+  height: 10px;
+  width: 100px;
+  bottom: 20px;  /*距离底部20px*/
+  left: 50%;  /*左右居中显示*/
+  z-index: 100;
+}
+
+/* 小圆点样式 */
+#buttons span {
+  cursor: pointer;
+  float: left;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #333;
+  margin-right: 5px;
+}
+
+/* 激活的小圆点成橘色 */
+#buttons .on {
+  background: orangered;
+}
+
+/* 向左。向右按钮样式 */
+.arrow {
+  cursor: pointer;
+  display: none;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  z-index: 100;
+  top: 180px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+#prev {
+  left: 20px;
+}
+
+#next {
+  right: 20px;
+}
+
+#container:hover .arrow {
+  display: block;
+}
