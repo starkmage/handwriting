@@ -32,7 +32,8 @@ function flatten5(array) {
     if (Array.isArray(item)) {
       res = res.concat(flatten5(item))
     } else {
-      res.push(item)
+      // concat的参数也可以是值，前面用过
+      res = res.concat(item)
     }
   })
   return res

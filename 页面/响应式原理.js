@@ -66,7 +66,7 @@ class Watcher {
   upDate() {
     //获取新值
     this.value = this.obj[this.key]
-    //更新DOM
+    //用最新值去更新DOM
     this.callback(this.value)
   }
 }

@@ -31,16 +31,16 @@ Function.prototype.myBind = function (context) {
   }
 
   var self = this;
-  var args = [...arguments].slice(1);
+  var args1 = [...arguments].slice(1);
 
-  var fNOP = function () {};
+  var fn = function () {};
+  fn.prototype = this.prototype
 
-  var fBound = function () {
-      var bindArgs = [...arguments];
-      return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
+  var res = function () {
+      var args2 = [...arguments];
+      return self.apply(this instanceof fn ? this : context, args1.concat(args2));
   }
-
-  fNOP.prototype = this.prototype;
-  fBound.prototype = new fNOP();
-  return fBound;
+  res.prototype = new fn()
+  
+  return res;
 }
