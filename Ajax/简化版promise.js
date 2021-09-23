@@ -1,4 +1,4 @@
-function myAjax(method, url, data) {
+function myAjax(method, url, data, timeout) {
   return new Promise((resolve, reject) => {
     // 1. 创建xhr
     let xhr = new XMLHttpRequest()
@@ -8,6 +8,11 @@ function myAjax(method, url, data) {
         if (xhr.status === 200 || xhr.status === 304) resolve(xhr.response)
         else reject(xhr.statusText)
       }
+    }
+    xhr.timeout = timeout
+    xhr.ontimeout = () => {
+      reject('请求超时')
+      xhr.abort()
     }
     // 3. 拼接参数，发送请求
     if (method.toLowerCase() === 'get') {

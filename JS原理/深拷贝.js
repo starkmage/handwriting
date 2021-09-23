@@ -1,5 +1,5 @@
 // 考虑循环引用的问题
-function deeepClone(obj, hash = new WeakMap()) {
+function deepClone(obj, hash = new WeakMap()) {
   if (obj === null) return obj
   if (obj instanceof Date) return new Date(obj)
   if (obj instanceof RegExp) return new RegExp(obj)
@@ -10,7 +10,7 @@ function deeepClone(obj, hash = new WeakMap()) {
   hash.set(obj, cloneObj)
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
-      cloneObj[key] = deeepClone(obj[key], hash)
+      cloneObj[key] = deepClone(obj[key], hash)
     }
   }
   return cloneObj
@@ -22,6 +22,6 @@ let obj = {
   b: 'ssasd'
 }
 
-let o = deeepClone(obj)
+let o = deepClone(obj)
 
 console.log(o);

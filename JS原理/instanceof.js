@@ -1,6 +1,6 @@
 function myInstanceOf(left, right) {
   //对基本数据类型，返回false
-  if (typeof left !== 'object' || left === null) return false
+  if (typeof left !== 'object' || left === null || typeof left !== 'function') return false
   left = left.__proto__
   while (true) {
     if (left === null) return false
