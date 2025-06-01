@@ -30,7 +30,8 @@ interface UseRequestResult<T> {
   data: T | null
   loading: boolean
   error: Error | null
-  run: RequestFunction<T>
+  run: (...args: any[]) => void // 同步函数，无返回值
+  runAsync: (...args: any[]) => Promise<T> // 异步函数，返回 Promise
   cancel: () => void
 }
 
@@ -44,7 +45,8 @@ const useRequest = <T>(
 
   const { manual = false } = options
 
-  const abortControllerRef = useRef(null)
+  const requestIdRef = useRef(0);
+  const abortControllerRef = useRef(null);
 
   const cancel = useCallback(() => {
     if (abortControllerRef.current) {
@@ -52,33 +54,44 @@ const useRequest = <T>(
       abortControllerRef.current = null
       setLoading(false)
     }
-  }, [abortControllerRef.current])
+  }, [])
 
 
-  const run = useCallback(async (...args) => {
+  const runAsync = useCallback(async (...args) => {
+    const currentRequestId = ++requestIdRef.current;
+
     cancel()
     setLoading(true)
     setError(null)
-
 
     try {
       const abortController = new AbortController()
       abortControllerRef.current = abortController
 
       const result = await requestFn(...args, { signal: abortController.signal })
-      setData(result)
+      if (currentRequestId === requestIdRef.current) {
+        setData(result)
+        setLoading(false)
+      }
+
       return result
     } catch (err) {
-      // 如果是取消请求的错误，不设置错误状态
-      if (err.name !== 'AbortError') {
-        setError(err);
+      if (currentRequestId === requestIdRef.current) {
+        setError(err)
+        setLoading(false)
       }
-      setError(err)
-    } finally {
-      abortControllerRef.current = null
-      setLoading(false)
     }
   }, [cancel, requestFn])
+
+  const run = useCallback(
+    (...args: any[]) => {
+      // 同步函数，不返回 Promise
+      runAsync(...args).catch(() => {
+        // 错误已经在 runAsync 中处理，这里不需要额外处理
+      });
+    },
+    [runAsync]
+  );
 
   useEffect(() => {
     if (!manual) {
@@ -95,6 +108,7 @@ const useRequest = <T>(
     data,
     loading,
     error,
+    runAsync,
     run,
     cancel
   }
