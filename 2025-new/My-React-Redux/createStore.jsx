@@ -7,7 +7,7 @@ https://yuanbao.tencent.com/chat/naQivTmsDa/2e6ae3ed-920c-4c4c-a0a6-52ada3b752d4
 
 const createStore = (reducer, initialState) => {
   let state = initialState
-  const listeners = []
+  const listeners = new Set()
 
   const getState = () => {
     return state
@@ -21,11 +21,10 @@ const createStore = (reducer, initialState) => {
   }
 
   const subscribe = (listener) => {
-    listeners.push(listener)
+    listeners.add(listener)
 
     return () => {
-      const index = listeners.indexOf(listener)
-      listeners.splice(index, 1)
+      listeners.delete(listener)
     }
   }
 
