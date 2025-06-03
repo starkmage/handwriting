@@ -23,16 +23,17 @@ const VirtualScrollList = ({
 
 
   const scrollAnimationFrame = useRef(null)
+  const containerRef = useRef(null)
 
-  const handleScroll = useCallback((e) => {
+  const handleScroll = useCallback(() => {
     if (scrollAnimationFrame.current) {
       cancelAnimationFrame(scrollAnimationFrame.current);
     }
 
     scrollAnimationFrame.current = requestAnimationFrame(() => {
-      setScrollTop(e.target.scrollTop);
+      setScrollTop(containerRef?.current?.scrollTop);
     })
-  }, [])
+  }, [containerRef])
 
   useEffect(() => {
     return () => {
@@ -47,13 +48,14 @@ const VirtualScrollList = ({
       style={{
         height: `${containerHeight}px`,
         overflow: 'auto',
-        position: 'relative'
       }}
+      ref={containerRef}
       onScroll={handleScroll}
     >
       <div
         style={{
           height: `${data.length * itemHeight}px`,
+          position: 'relative'
         }}
       >
         <div
