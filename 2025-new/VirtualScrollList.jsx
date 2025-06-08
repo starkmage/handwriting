@@ -17,7 +17,7 @@ const VirtualScrollList = ({
     return Math.min(startIndex + Math.ceil(containerHeight / itemHeight) + bufferSize, data.length - 1)
   }, [startIndex, containerHeight, itemHeight, bufferSize, data.length])
 
-  const visiableItems = useMemo(() => {
+  const visibleItems = useMemo(() => {
     return data.slice(startIndex, endIndex + 1)
   }, [startIndex, endIndex, data])
 
@@ -33,7 +33,7 @@ const VirtualScrollList = ({
     scrollAnimationFrame.current = requestAnimationFrame(() => {
       setScrollTop(containerRef?.current?.scrollTop);
     })
-  }, [containerRef])
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -65,7 +65,7 @@ const VirtualScrollList = ({
           }}
         >
           {
-            visiableItems.map((item, index) => {
+            visibleItems.map((item, index) => {
               return (
                 <div
                   key={startIndex + index}
