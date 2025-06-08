@@ -8,7 +8,12 @@ function useLocalStorage(key, initialValue) {
       if (typeof window !== 'undefined') {
         const item = window.localStorage.getItem(key);
         // 如果 localStorage 中有值，则解析返回，否则返回初始值
-        return item ? JSON.parse(item) : initialValue;
+        if (item) {
+          return JSON.parse(item)
+        } else {
+          window.localStorage.setItem(key, JSON.stringify(initialValue))
+          return initialValue
+        }
       }
       return initialValue;
     } catch (error) {

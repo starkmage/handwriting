@@ -1,24 +1,39 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 function useTimeout(callback, delay) {
-  const savedCallback = useRef();
+  const timerRef = useRef(null)
+  const savedCallbackRef = useRef(callback);
 
   // 保存最新的回调函数
+  /*
+  直接使用 callback 的问题在于 ​​闭包陷阱​​（Stale Closure Problem）。
+  在 useEffect 或 useTimeout 这类 Hook 中，如果直接依赖 callback，可能会导致回调函数访问的是旧的变量值，而不是最新的值。
+  */
   useEffect(() => {
-    savedCallback.current = callback;
+    savedCallbackRef.current = callback;
   }, [callback]);
 
-  // 设置和清理定时器
+  const clear = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+    }
+  }, [])
+
   useEffect(() => {
-    function tick() {
-      savedCallback.current();
+    if (delay < 0) {
+      return;
     }
-    
-    if (delay !== null) {
-      const id = setTimeout(tick, delay);
-      return () => clearTimeout(id);
-    }
+
+    timerRef.current = setTimeout(() => {
+      savedCallbackRef.current()
+    }, delay);
+
+    return () => {
+      clear()
+    };
   }, [delay]);
+
+  return clear;
 }
 
 export default useTimeout;
