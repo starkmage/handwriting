@@ -1,6 +1,26 @@
-setTimeout(function() {
-  // do something
-  setTimeout(arguments.callee, 1000)
-}, 1000)
+function customInterval(callback, delay) {
+  let timerId;
+  
+  function execute() {
+    callback();
+    timerId = setTimeout(execute, delay); // 递归调用
+  }
+  
+  timerId = setTimeout(execute, delay); // 首次调用
+  
+  return {
+    clear: function() {
+      clearTimeout(timerId);
+    }
+  };
+}
 
-//arguments.callee 是一个指针，指向拥有 arguments 的函数
+// 使用示例
+const interval = customInterval(() => {
+  console.log('执行任务');
+}, 1000);
+
+// 5秒后清除定时器
+setTimeout(() => {
+  interval.clear();
+}, 5000);
