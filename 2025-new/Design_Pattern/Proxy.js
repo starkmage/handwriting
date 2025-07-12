@@ -14,19 +14,20 @@ function fetchData(url) {
   })
 }
 
-const cache = new Map
-
+const cache = new Map()
 
 const cachedFetch = new Proxy(fetchData, {
-  apply(target, handler, args) {
+  apply(target, thisArg, args) {
     const key = args[0]
     if (cache.has(key)) {
-      return Promise.resolve(cache.get(key))
+      return cache.get(key); // 直接返回 Promise
     } else {
-      return target(...args).then((res) => {
-        cache.set(key, res)
-        return res
-      })
+      const promise = target(...args).then((res) => {
+        cache.set(key, Promise.resolve(res)); // 缓存已解析的 Promise
+        return res;
+      });
+      cache.set(key, promise); // 先缓存 Promise
+      return promise;
     }
   }
 })

@@ -1,8 +1,8 @@
 /*
 工厂模式（Factory Pattern）
 
-✅ 概念
-定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂使一个类的实例化延迟到其子类。
+👇 一句话解释工厂模式：
+工厂模式通过一个工厂函数/类来创建对象实例，而不是直接通过 new 操作，这样可以根据参数返回不同类型的对象。
 
 ✅ 特点
 根据类型创建不同对象	统一创建逻辑、解耦构造细节
@@ -23,13 +23,23 @@ class MyButton {
   }
 }
 
-class PrimaryButton {
+class PrimaryButton extends MyButton {
+  constructor(text) {
+    super(text);
+    this.type = 'primary'
+  }
+
   render() {
     return <Button class='primary'>{this.text}</Button>
   }
 }
 
-class DangeButton {
+class DangerButton extends MyButton {
+  constructor(text) {
+    super(text);
+    this.type = 'danger';
+  }
+
   render() {
     return <Button class='danger'>{this.text}</Button>
   }
@@ -38,10 +48,10 @@ class DangeButton {
 function ButtonFactory(type = 'default', text = 'Click') {
   switch (type) {
     case 'primary': {
-       new PrimaryButton(text)
+      new PrimaryButton(text)
     }
     case 'danger': {
-      return new DangeButton(text)
+      return new DangerButton(text)
     }
     default: {
       return new MyButton(text)

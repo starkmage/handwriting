@@ -9,33 +9,34 @@
 */
 
 class GlobalConfig {
+  static #instance = null;
+
   constructor() {
-    if (GlobalConfig.instance) {
-      return GlobalConfig.instance
+    if (GlobalConfig.#instance) {
+      return GlobalConfig.#instance;
     }
 
-    this.apiBaseUrl = 'xxx'
-    this.theme = 'dark'
+    this.theme = 'dark';
 
-    GlobalConfig.instance = this
+    GlobalConfig.#instance = this;
+  }
+
+  static getInstance() {
+    if (!GlobalConfig.#instance) {
+      GlobalConfig.#instance = new GlobalConfig();
+    }
+    return GlobalConfig.#instance;
   }
 
   setTheme(theme) {
-    this.theme = theme
+    this.theme = theme;
   }
 
   getTheme() {
-    return this.theme
+    return this.theme;
   }
 }
 
-const globalConfig = new GlobalConfig()
-Object.freeze(globalConfig)
-export default globalConfig
+const globalConfig = GlobalConfig.getInstance();
 
-/*
-use it
-
-import config from './singleton'
-console.log(config.getTheme());
-*/
+export default globalConfig;
