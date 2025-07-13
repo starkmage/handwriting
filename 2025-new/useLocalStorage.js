@@ -57,6 +57,7 @@ function useLocalStorage(key, initialValue) {
       }
     };
 
+    // storage 事件只会在 跨标签页/窗口 中触发，当前页面 setItem 不会触发
     window.addEventListener('storage', handleStorageChange);
     return () => {
       window.removeEventListener('storage', handleStorageChange);

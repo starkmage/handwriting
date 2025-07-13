@@ -91,7 +91,7 @@ Promise.any = (promises) => {
   }
 
   if (promises.length === 0) {
-    throw new AggregateError([], 'Array is empty')
+    return Promise.reject(new AggregateError([], 'All promises were rejected'))
   }
 
   return new Promise((resolve, reject) => {
@@ -113,4 +113,50 @@ Promise.any = (promises) => {
       )
     })
   })
+}
+
+class MyPromise {
+  constructor(executor) {
+    this.status = 'pending'
+    this.value = undefined
+    this.reason = undefined
+    this.onFulfilledCallbacks = []
+    this.onRejectedCallbacks = []
+
+    const resolve = (value) => {
+      if (this.status === 'pending') {
+        this.status = 'fulfilled'
+        this.value = value
+        this.onFulfilledCallbacks.forEach(fn => fn(value))
+      }
+    }
+
+    const reject = (reason) => {
+      if (this.status === 'pending') {
+        this.status = 'rejected'
+        this.reason = reason
+        this.onRejectedCallbacks.forEach(fn => fn(reason))
+      }
+    }
+
+    try {
+      executor(resolve, reject)
+    } catch (err) {
+      reject(err)
+    }
+  }
+
+  // ✅ 核心部分：实现 resolve
+  static resolve(value) {
+    if (value instanceof MyPromise) {
+      return value
+    }
+
+    return new MyPromise((resolve) => resolve(value))
+  }
+
+  // ✅ 核心部分：实现 reject
+  static reject(reason) {
+    return new MyPromise((_, reject) => reject(reason))
+  }
 }

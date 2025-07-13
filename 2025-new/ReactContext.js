@@ -49,34 +49,23 @@ function createContext(defaultValue) {
 /*
 使用示例
 */
-const {
-  Provider: ThemeProvider,
-  useContext: useTheme,
-} = createContext('light');
+const { Provider, useContext } = createContext('default')
 
-function Button() {
-  const theme = useTheme();
-  console.log('Button theme:', theme);
+function MyComponent() {
+  const val = useContext()
+  console.log('MyComponent render:', val)
 }
 
-// 模拟组件更新流程
-function App() {
-  ThemeProvider({
-    value: 'dark',
-    children: () => {
-      Button();
-    },
-  });
+Provider({
+  value: 'hello',
+  children: () => {
+    MyComponent()
+  }
+})
 
-  setTimeout(() => {
-    console.log('\n---- Theme updated to light ----');
-    ThemeProvider({
-      value: 'light',
-      children: () => {
-        Button(); // 再次触发子组件使用 context
-      },
-    });
-  }, 1000);
-}
-
-App();
+Provider({
+  value: 'world',
+  children: () => {
+    MyComponent()
+  }
+})

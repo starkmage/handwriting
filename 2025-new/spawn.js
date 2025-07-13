@@ -14,8 +14,8 @@ async function foo() {
 // 对应的 Generator 实现
 function foo() {
   return spawn(function*() {
-    const a = yield somePromise();
-    const b = yield anotherPromise();
+    const a = yield Promise.resolve('abc')
+    const b = yield Promise.resolve('def')
     return a + b;
   });
 }
@@ -45,3 +45,5 @@ function spawn(generatorFn) {
     step(() => generator.next())
   })
 }
+
+const res = foo().then(console.log)

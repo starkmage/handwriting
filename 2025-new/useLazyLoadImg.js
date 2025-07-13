@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-function useLazyLoadAll(containterRef) {
+function useLazyLoadAll(containerRef) {
   const observerRef = useRef(null);
 
   useEffect(() => {
-    if (!containterRef.current) {
+    if (!containerRef.current) {
       return
     }
     // 配置 IntersectionObserver
@@ -30,7 +30,7 @@ function useLazyLoadAll(containterRef) {
     );
 
     // 自动监听现有图片
-    const images = containterRef.current.querySelectorAll('img[data-src]');
+    const images = containerRef.current.querySelectorAll('img[data-src]');
     images.forEach(img => observerRef.current.observe(img));
 
     return () => {
