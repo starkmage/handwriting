@@ -7,8 +7,8 @@ const useMyState = (initialState) => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const setState = (newValue) => {
-    dispatch(newValue)
+  const setState = (action) => {
+    dispatch(action)
   }
 
   return [state, setState]
