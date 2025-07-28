@@ -15,5 +15,5 @@ const useUpdateEffect = (effect, deps) => {
     }
 
     return effect()
-  },deps)
+  }, deps)
 }

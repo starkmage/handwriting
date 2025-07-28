@@ -9,6 +9,8 @@
 */
 
 function fetchData(url) {
+  console.log('invoked')
+  
   return Promise.resolve({
     data: 'response from' + url
   })
@@ -26,6 +28,7 @@ const cachedFetch = new Proxy(fetchData, {
         cache.set(key, Promise.resolve(res)); // 缓存已解析的 Promise
         return res;
       });
+
       cache.set(key, promise); // 先缓存 Promise
       return promise;
     }
@@ -33,5 +36,5 @@ const cachedFetch = new Proxy(fetchData, {
 })
 
 // 使用
-cachedFetch("/user"); // 网络请求
-cachedFetch("/user"); // 缓存返回
+cachedFetch("/user").then(console.log); // 网络请求
+cachedFetch("/user").then(console.log); // 缓存返回
