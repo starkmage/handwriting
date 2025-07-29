@@ -7,7 +7,7 @@ function flatten(obj, prefix = '', result = {}) {
 
   const keys = Object.keys(obj)
 
-  for (const key in keys) {
+  for (const key of keys) {
     const value = obj[key];
 
     const newKey = prefix
@@ -19,3 +19,18 @@ function flatten(obj, prefix = '', result = {}) {
 
   return result;
 }
+
+const input = {
+  a: 'test',
+  b: [10, 19, {c: 30}],
+  d: {
+    e: 'name',
+    f: {
+      g: 'value'
+    }
+  }
+}
+
+const output = flatten(input)
+
+console.log(output)

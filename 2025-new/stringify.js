@@ -48,10 +48,10 @@ const stringify = (obj) => {
 
       seen.add(value)
 
-      const props = Object.entries(value).filter((key, value) => {
+      const props = Object.entries(value).filter(([key, value]) => {
         const type = typeof value
         return type !== 'undefined' && type !== 'function' && type !== 'symbol'
-      }).map((key, value) => {
+      }).map(([key, value]) => {
         return `"${key}":${_stringify(value)}`
       }).join(',')
 

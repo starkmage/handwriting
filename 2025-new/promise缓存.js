@@ -42,7 +42,7 @@ const fn = (fetchData) => {
         cache = Promise.resolve(value); // 更新 cache 为 PromiseC
         // 无 return → PromiseB 会 resolve 为 undefined
         // 加上return cache就没问题了
-        return cache
+        return value
       });
       
       return cache; // 返回的是 PromiseB
@@ -69,11 +69,11 @@ const cachedFetchData = fn(fetchData)
 const newMain = () => {
   const promisesFn = Array(10).fill(cachedFetchData)
 
-  const promise = promisesFn.map((fn) => {
+  const promises = promisesFn.map((fn) => {
     return fn()
   })
 
-  Promise.all(promise).then((value) => console.log(value))
+  Promise.all(promises).then((value) => console.log(value))
 }
 
 // main()
