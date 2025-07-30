@@ -1,3 +1,3 @@
-Object.myCreate = function(obj) {
-  return {'__proto__': obj}
+Object.myCreate = function(prototype) {
+  return {'__proto__': prototype}
 }

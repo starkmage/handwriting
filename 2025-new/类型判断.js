@@ -3,7 +3,7 @@ const isType = (value) => {
   const type = Object.prototype.toString.call(value)
   const output = type.slice(8, type.length - 1)
 
-  return output
+  return output.toLowerCase()
 }
 
 /*
