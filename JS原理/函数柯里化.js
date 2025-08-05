@@ -1,13 +1,15 @@
 // 柯里化用大白话来说就是只传递给函数一部分参数来调用它，让它返回一个新函数去处理剩下的参数
-function currying(fn, length) {
-  length = length || fn.length
-  return function(...args) {
-    return args.length >= length
-      ? fn.apply(this, args)
-      : currying(fn.bind(this, ...args), length - args.length)
-  }
-}
+// 力扣2632
+var curry = function(fn) {
 
+    return function curried(...args) {
+      if (args.length >= fn.length) {
+        return fn.apply(this, args)
+      } else {
+        return curried.bind(this, ...args)
+      }
+    }
+};
 /* 
 实现下面的代码
 sum(1,2)(2)() = 5

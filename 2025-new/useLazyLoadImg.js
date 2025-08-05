@@ -22,8 +22,8 @@ function useLazyLoadAll(containerRef) {
         });
       },
       {
-        // 关键：设置 root 为 containerRef则是相对container的懒加载，null则是相对整个视口viewport的
-        root: containerRef.current, 
+        // 关键：设置 root 为 containerRef则是相对container的懒加载，null则是相对整个视口viewport的， 但实测设置非null会不生效，原因没debug出来
+        root: null, 
         rootMargin: '100px',
         threshold: 0.1
       }

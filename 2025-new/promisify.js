@@ -1,3 +1,5 @@
+// 力扣2776
+
 function promisify(fn) {
   return function (...args) {
     return new Promise((resolve, reject) => {
