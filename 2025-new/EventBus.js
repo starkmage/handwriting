@@ -1,3 +1,9 @@
+/* 
+补充几个EventBus的缺点：
+1. 难以追踪的事件链
+2. 内存泄漏风险
+*/
+
 class EventBus {
   constructor() {
     this.events = new Map(); // 存储事件和对应的回调函数
