@@ -52,5 +52,5 @@ Array.prototype.myFlat = function(deep) {
 
 
 let ary = [1, 2, [3, 4], [5, [6, 7]]]
-let res = myFlat(ary)
+let res = ary.myFlat(3)
 console.log(res);
