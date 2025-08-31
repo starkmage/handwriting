@@ -127,7 +127,11 @@ class MyPromise {
       if (this.status === 'pending') {
         this.status = 'fulfilled'
         this.value = value
-        this.onFulfilledCallbacks.forEach(fn => fn(value))
+        this.onFulfilledCallbacks.forEach((callback) => {
+          queueMicrotask(() => {
+            callback(value);
+          });
+        });
       }
     }
 
@@ -135,7 +139,11 @@ class MyPromise {
       if (this.status === 'pending') {
         this.status = 'rejected'
         this.reason = reason
-        this.onRejectedCallbacks.forEach(fn => fn(reason))
+        this.onRejectedCallbacks.forEach((callback) => {
+          queueMicrotask(() => {
+            callback(reason);
+          });
+        });
       }
     }
 
