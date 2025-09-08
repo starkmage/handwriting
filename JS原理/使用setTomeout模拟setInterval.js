@@ -1,3 +1,5 @@
+// 力扣2805
+
 function customInterval(callback, delay) {
   let timerId;
   

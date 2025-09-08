@@ -77,7 +77,9 @@ const useRequest = <T>(
       return result
     } catch (err) {
       if (currentRequestId === requestIdRef.current) {
-        setError(err)
+        if (err.name !== 'AbortError') {
+          setError(err)
+        }
         setLoading(false)
       }
     }

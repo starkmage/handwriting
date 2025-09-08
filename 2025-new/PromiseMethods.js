@@ -33,7 +33,8 @@ Promise.race = (promises) => {
   }
 
   if (promises.length === 0) {
-    return Promise.reject('Array is empty')
+    // 返回一个永远 pending 的 Promise
+    return new Promise(() => { })
   }
 
   return new Promise((resolve, reject) => {

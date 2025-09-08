@@ -1,4 +1,4 @@
-//手写call
+//手写call，力扣2693
 Function.prototype.myCall = function(context = window, ...args) {
   if (typeof this !== 'function') {
     throw new TypeError('Function.prototype.myCall - what is trying to be called is not callable');
