@@ -1,3 +1,5 @@
+// 力扣2626
+
 Array.prototype.myReduce = function(callback, pre) {
   for (let i = 0; i < this.length; i++) {
     if (pre === undefined) {

@@ -1,3 +1,5 @@
+// 类似力扣2618
+
 function myInstanceOf(left, right) {
   //对基本数据类型，返回false
   if (typeof left !== 'object' || left === null || typeof left !== 'function') return false

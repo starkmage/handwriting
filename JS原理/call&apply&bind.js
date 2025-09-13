@@ -32,6 +32,8 @@ Function.prototype.myApply = function(context = window, args = []) {
   return result;
 };
 
+
+// 力扣2754
 //手写bind
 Function.prototype.myBind = function(context, ...args) {
   if (typeof this !== 'function') {

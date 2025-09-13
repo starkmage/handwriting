@@ -1,3 +1,5 @@
+// 力扣2625
+
 //1. flat方法
 function flatten1(array) {
   return array.flat(Infinity)

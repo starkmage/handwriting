@@ -1,3 +1,4 @@
+// 力扣2721
 Promise.all = (promises) => {
   if (!Array.isArray(promises)) {
     throw new Error('params must be an array')
