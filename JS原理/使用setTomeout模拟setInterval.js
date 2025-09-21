@@ -1,28 +1,39 @@
 // 力扣2805
 
-function customInterval(callback, delay) {
-  let timerId;
-  
-  function execute() {
-    callback();
-    timerId = setTimeout(execute, delay); // 递归调用
+const map = new Map()
+
+/**
+ * @param {Function} fn
+ * @param {number} delay
+ * @param {number} period
+ * @return {number} id
+ */
+function customInterval(fn, delay, period) {
+  const id = Date.now()
+  let count = 0
+
+  const attempt = () => {
+    const timer = setTimeout(() => {
+      fn()
+      count++
+      attempt()
+    }, delay + period * count)
+
+    map.set(id, timer)
   }
-  
-  timerId = setTimeout(execute, delay); // 首次调用
-  
-  return {
-    clear: function() {
-      clearTimeout(timerId);
-    }
-  };
+
+  attempt()
+
+  return id
 }
 
-// 使用示例
-const interval = customInterval(() => {
-  console.log('执行任务');
-}, 1000);
-
-// 5秒后清除定时器
-setTimeout(() => {
-  interval.clear();
-}, 5000);
+/**
+ * @param {number} id
+ * @return {void}
+ */
+function customClearInterval(id) {
+  if (map.has(id)) {
+    const timer = map.get(id)
+    clearTimeout(timer)
+  }
+}

@@ -48,6 +48,7 @@ Promise.race = (promises) => {
   })
 }
 
+// 力扣2795
 Promise.allSettled = (promises) => {
   if (!Array.isArray(promises)) {
     throw new Error('params must be an array')
